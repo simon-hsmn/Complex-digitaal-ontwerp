@@ -1,9 +1,9 @@
----------------------------
---| Simon Huijsman		|--
---| 14/10/2026			|--
----------------------------
---#		DEBOUNCER		#--
----------------------------
+-----------------------
+--| Simon Huijsman	|--
+--| 14/10/2026		|--
+-----------------------
+--#	   DEBOUNCER	#--
+-----------------------
 
 -- Library
 LIBRARY ieee;
@@ -13,17 +13,18 @@ USE ieee.std_logic_unsigned.ALL;
 -- In en uitgangen
 ENTITY debouncer IS
 GENERIC (N:			NATURAL := 4);
-PORT(clk, rst_b, EC:	IN  std_logic;
-	 sig_in:			IN  std_logic := '0';
-	 sig_out_deb:		OUT std_logic);
+PORT(
+	clk, rst_b, EC:	IN  std_logic;
+	sig_in:			IN  std_logic := '0';
+	sig_out_deb:	OUT std_logic
+	);
 END;
 
 ARCHITECTURE behaviour OF debouncer IS
-
--- Constants en signals declaration
-  SIGNAL shift_data:	std_logic_vector((N-1) DOWNTO 0)	:= (OTHERS => sig_in);	-- shift register (voor shift)
-  SIGNAL shift_new:		std_logic_vector((N-1) DOWNTO 0)	:= (OTHERS => sig_in);	-- updated shift register (na shift)
-  SIGNAL SL:			std_logic;				-- signaal voor shift/load
+-- Constants en signals declaratie
+SIGNAL shift_data:	std_logic_vector((N-1) DOWNTO 0)	:= (OTHERS => sig_in);	-- shift register (voor shift)
+SIGNAL shift_new:	std_logic_vector((N-1) DOWNTO 0)	:= (OTHERS => sig_in);	-- updated shift register (na shift)
+SIGNAL SL:			std_logic;		-- signaal voor shift/load
 
 BEGIN
 -- 2 Process methode
