@@ -80,7 +80,9 @@ BEGIN
 	WAIT FOR period;
       
 	-- Simulate rising edge with spikes
-	rst_b  <= '1';
+		--> No testvector, because we want to generate an asynchronous signal with spikes
+		--> The testvector would be synchronous with the clock
+	rst_b <= '1';
 	sig_in <= '1';
 	WAIT FOR 50 ns;
 	sig_in <= '0';
@@ -92,7 +94,7 @@ BEGIN
 	sig_in <= '1';
 	WAIT FOR 500 ns;
 	sig_in <= '0';
-	WAIT FOR 300 ns;
+	WAIT FOR 800 ns;
 	sig_in <= '1';
 	WAIT FOR 80 ns;
 	sig_in <= '0';
@@ -105,6 +107,9 @@ BEGIN
 	WAIT FOR 500 ns;
 	sig_in <= '0';
 	WAIT FOR 50 ns;
+	rst_b <= '0';
+	WAIT FOR period;
+	rst_b <= '1';
 	sig_in <= '1';
 	WAIT FOR period*20;
 

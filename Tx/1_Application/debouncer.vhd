@@ -24,7 +24,7 @@ ARCHITECTURE behaviour OF debouncer IS
 -- Constants en signals declaratie
 SIGNAL shift_data:	std_logic_vector((N-1) DOWNTO 0)	:= (OTHERS => sig_in);	-- shift register (voor shift)
 SIGNAL shift_new:	std_logic_vector((N-1) DOWNTO 0)	:= (OTHERS => sig_in);	-- updated shift register (na shift)
-SIGNAL SL:			std_logic;		-- signaal voor shift/load
+--SIGNAL SL:			std_logic;		-- signaal voor shift/load
 
 BEGIN
 -- 2 Process methode
@@ -38,9 +38,10 @@ BEGIN
 	END IF;
 	END PROCESS shift_reg;
 
-    comb: PROCESS(shift_data, sig_in, SL)
+    comb: PROCESS(shift_data, sig_in)
+		VARIABLE SL: std_logic := '0';	-- signaal voor shift/load
 	BEGIN
-	SL <= sig_in XOR shift_data(0);
+	 SL := sig_in XOR shift_data(0);
 	IF (SL = '1') THEN
 	    shift_new <= NOT(shift_data(0)) & shift_data((N-1) DOWNTO 1);	-- als SL (shift/load) hoog is 1 keer doorschuiven
 	ELSIF (SL = '0') THEN
