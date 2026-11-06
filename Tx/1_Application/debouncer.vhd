@@ -21,7 +21,7 @@ PORT(
 END;
 
 ARCHITECTURE behaviour OF debouncer IS
--- Constants en signals declaratie
+-- Constants en signals declaration
 SIGNAL shift_data:	std_logic_vector((N-1) DOWNTO 0)	:= (OTHERS => sig_in);	-- shift register (voor shift)
 SIGNAL shift_new:	std_logic_vector((N-1) DOWNTO 0)	:= (OTHERS => sig_in);	-- updated shift register (na shift)
 --SIGNAL SL:			std_logic;		-- signaal voor shift/load

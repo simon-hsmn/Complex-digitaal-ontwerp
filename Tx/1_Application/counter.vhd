@@ -19,7 +19,7 @@ USE ieee.std_logic_unsigned.ALL;
 --@Input clk:          clock signal
 --@Input EC:           enable clock
 --@Input rst_b:        synchronous reset
---@Input sig:          direction signal (up/down)
+--@Input ud:           direction signal (up/down)
 --@Input ce:           count enable signal
 --@Output count_out:   the current count value (W bits wide)
 --@Output divN:        detects overflow or underflow; 1 when count exceeds max or min, 0 otherwise
@@ -29,7 +29,7 @@ ENTITY counter IS
 GENERIC (W :	natural	:= 32);		-- bit-length of counter (standard 32-bit)
 PORT(
     clk, EC, rst_b: IN  std_logic;
-    sig, ce:        IN  std_logic;
+    ud, ce:         IN  std_logic;
 	count_out:	    OUT std_logic_vector ((W-1) DOWNTO 0);
     divN:			OUT std_logic
 	);
@@ -55,10 +55,10 @@ BEGIN
     END PROCESS seq;
 
     -- Process 2: combinational logic
-    comb: PROCESS(p_count, ce, sig)
+    comb: PROCESS(p_count, ce, ud)
     BEGIN
     IF ce = '1' THEN
-        IF sig = '1' THEN
+        IF ud = '1' THEN
             IF (p_count = zero AND prev_count = ones) THEN divN <= '1';
             ELSE    divN <= '0';
             END IF;

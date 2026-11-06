@@ -22,7 +22,7 @@ ARCHITECTURE structural OF counter_test IS
     COMPONENT counter
     GENERIC (W :	natural	:= 4);		-- bit-length of counter (standard 32-bit)
 	    PORT(clk, rst_b, EC:IN  std_logic;
-             sig, ce:       IN  std_logic;
+             ud, ce:        IN  std_logic;
 		     count_out:     OUT std_logic_vector(3 DOWNTO 0);
 		     divN:			OUT std_logic);
     END COMPONENT;
@@ -37,7 +37,7 @@ ARCHITECTURE structural OF counter_test IS
     SIGNAL clk:		    std_logic;
     SIGNAL rst_b:	    std_logic;
     SIGNAL EC:		    std_logic;
-	SIGNAL sig:         std_logic;
+	SIGNAL ud:          std_logic;
 	SIGNAL ce:	        std_logic;
 	SIGNAL count_out:   std_logic_vector(3 DOWNTO 0);
 	SIGNAL divN:		std_logic;
@@ -48,7 +48,7 @@ BEGIN
         clk 	    => clk,
 		rst_b	    => rst_b,
 		EC		    => EC,
-		sig         => sig,
+		ud          => ud,
 		ce	        => ce,
 		count_out	=> count_out,
 		divN		=> divN);
@@ -71,13 +71,13 @@ BEGIN
     tb_gen : PROCESS
     PROCEDURE testvector(CONSTANT stimvect : IN std_logic_vector(1 DOWNTO 0))IS
     BEGIN
-	    sig	<= stimvect(0);
+	    ud	<= stimvect(0);
         ce	<= stimvect(1);
 	    WAIT FOR period;
     END testvector;
     BEGIN
 	-- testvector assignment:
-	-- Bit 0: sig
+	-- Bit 0: ud
     -- Bit 1: ce
 
 	-- Small offset to simulate true asynchronous behaviour (10% offset with clock)

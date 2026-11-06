@@ -20,7 +20,7 @@ PORT(
 END;
 
 ARCHITECTURE behaviour OF edge_det IS
--- Constants en signals declaratie
+-- Constants en signals declaration
 CONSTANT s0:	std_logic_vector(1 DOWNTO 0) := "00";
 CONSTANT s1:	std_logic_vector(1 DOWNTO 0) := "01";
 CONSTANT p:		std_logic_vector(1 DOWNTO 0) := "10";
